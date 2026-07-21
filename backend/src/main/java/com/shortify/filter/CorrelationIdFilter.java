@@ -1,0 +1,55 @@
+package com.shortify.filter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.UUID;
+
+@Component
+@Slf4j
+public class CorrelationIdFilter extends OncePerRequestFilter {
+
+    private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
+    private static final String MDC_CORRELATION_ID_KEY = "correlationId";
+
+    @Override
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
+
+        String correlationId = request.getHeader(CORRELATION_ID_HEADER);
+        if (correlationId == null || correlationId.trim().isEmpty()) {
+            correlationId = UUID.randomUUID().toString();
+        }
+
+        MDC.put(MDC_CORRELATION_ID_KEY, correlationId);
+        response.setHeader(CORRELATION_ID_HEADER, correlationId);
+
+        long startTime = System.currentTimeMillis();
+        try {
+            filterChain.doFilter(request, response);
+        } finally {
+            long duration = System.currentTimeMillis() - startTime;
+            logRequestDetails(request, response, duration);
+            MDC.remove(MDC_CORRELATION_ID_KEY);
+        }
+    }
+
+    private void logRequestDetails(HttpServletRequest request, HttpServletResponse response, long duration) {
+        String method = request.getMethod();
+        String uri = request.getRequestURI();
+        int status = response.getStatus();
+        
+        // Log basic HTTP details safely without leaking payload data
+        log.info("HTTP {} {} - Status: {}, Duration: {} ms", method, uri, status, duration);
+    }
+}
