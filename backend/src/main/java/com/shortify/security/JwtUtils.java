@@ -20,8 +20,8 @@ public class JwtUtils {
     private final long jwtExpirationMs;
 
     public JwtUtils(
-            @Value("${app.jwt.secret:defaultSecretKeyWithAtLeast32BytesLengthOfCharactersForSecurityPurpose!}") String secret,
-            @Value("${app.jwt.expiration-ms:900000}") long jwtExpirationMs) {
+            @Value("${jwt.secret:defaultSecretKeyWithAtLeast32BytesLengthOfCharactersForSecurityPurpose!}") String secret,
+            @Value("${jwt.expiration-ms:900000}") long jwtExpirationMs) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.jwtExpirationMs = jwtExpirationMs;
     }
