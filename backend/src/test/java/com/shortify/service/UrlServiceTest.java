@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.shortify.config.AppProperties;
 
 import java.time.LocalDateTime;
 
@@ -32,6 +33,9 @@ class UrlServiceTest {
     @Mock
     private com.shortify.monitoring.MetricsService metricsService;
 
+    @Mock
+    private AppProperties appProperties;
+
     @InjectMocks
     private UrlService urlService;
 
@@ -40,6 +44,7 @@ class UrlServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        when(appProperties.getBaseUrl()).thenReturn("http://localhost:8080");
         user = User.builder()
                 .id(1L)
                 .name("Alice")

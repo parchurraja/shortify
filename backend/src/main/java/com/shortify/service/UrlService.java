@@ -1,6 +1,6 @@
 package com.shortify.service;
 
-import com.shortify.monitoring.MetricsService;
+import com.shortify.config.AppProperties;
 import com.shortify.dto.request.UrlCreateRequest;
 import com.shortify.dto.request.UrlUpdateRequest;
 import com.shortify.dto.response.UrlResponse;
@@ -10,9 +10,9 @@ import com.shortify.exception.BadRequestException;
 import com.shortify.exception.DuplicateResourceException;
 import com.shortify.exception.ResourceNotFoundException;
 import com.shortify.exception.UnauthorizedException;
+import com.shortify.monitoring.MetricsService;
 import com.shortify.repository.UrlRepository;
 import com.shortify.util.Base62Utils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,42 +26,55 @@ public class UrlService {
     private final UrlRepository urlRepository;
     private final PasswordEncoder passwordEncoder;
     private final MetricsService metricsService;
+    private final AppProperties appProperties;
 
-    @Value("${app.base-url:http://localhost:8080}")
-    private String baseUrl;
-
-    public UrlService(UrlRepository urlRepository, PasswordEncoder passwordEncoder, MetricsService metricsService) {
+    public UrlService(UrlRepository urlRepository,
+                      PasswordEncoder passwordEncoder,
+                      MetricsService metricsService,
+                      AppProperties appProperties) {
         this.urlRepository = urlRepository;
         this.passwordEncoder = passwordEncoder;
         this.metricsService = metricsService;
+        this.appProperties = appProperties;
     }
 
     @Transactional
     public UrlResponse createShortUrl(UrlCreateRequest request, User user) {
+
         long startTime = System.currentTimeMillis();
+
         try {
+
             String shortCode;
 
             if (StringUtils.hasText(request.getCustomAlias())) {
+
                 String alias = request.getCustomAlias().trim();
+
                 if (urlRepository.existsByShortCode(alias)) {
-                    throw new DuplicateResourceException("Custom alias '" + alias + "' is already taken");
+                    throw new DuplicateResourceException(
+                            "Custom alias '" + alias + "' is already taken");
                 }
+
                 shortCode = alias;
+
             } else {
-                // Generate a unique Base62 code
+
                 int retries = 0;
+
                 do {
                     shortCode = Base62Utils.generateShortCode();
                     retries++;
                 } while (urlRepository.existsByShortCode(shortCode) && retries < 5);
 
                 if (retries >= 5) {
-                    throw new BadRequestException("Could not generate a unique short code, please try again.");
+                    throw new BadRequestException(
+                            "Could not generate a unique short code.");
                 }
             }
 
             String passwordHash = null;
+
             if (StringUtils.hasText(request.getPassword())) {
                 passwordHash = passwordEncoder.encode(request.getPassword());
             }
@@ -79,64 +92,98 @@ public class UrlService {
                     .build();
 
             Url savedUrl = urlRepository.save(url);
-            UrlResponse response = mapToUrlResponse(savedUrl);
+
             metricsService.incrementUrlsCreated();
-            return response;
+
+            return mapToUrlResponse(savedUrl);
+
         } finally {
-            metricsService.recordUrlCreateDuration(System.currentTimeMillis() - startTime);
+
+            metricsService.recordUrlCreateDuration(
+                    System.currentTimeMillis() - startTime);
         }
     }
 
     @Transactional(readOnly = true)
-    public Page<UrlResponse> getUrls(User user, String search, Pageable pageable) {
-        Page<Url> urlPage;
+    public Page<UrlResponse> getUrls(User user,
+                                     String search,
+                                     Pageable pageable) {
+
+        Page<Url> urls;
+
         if (StringUtils.hasText(search)) {
-            urlPage = urlRepository.searchUrls(user, search.trim(), pageable);
+            urls = urlRepository.searchUrls(user, search.trim(), pageable);
         } else {
-            urlPage = urlRepository.findByUserAndDeletedAtIsNull(user, pageable);
+            urls = urlRepository.findByUserAndDeletedAtIsNull(user, pageable);
         }
-        return urlPage.map(this::mapToUrlResponse);
+
+        return urls.map(this::mapToUrlResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public UrlResponse getUrlById(Long id, User user) {
+
+        Url url = urlRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("URL not found"));
+
+        if (!url.getUser().getId().equals(user.getId())) {
+            throw new UnauthorizedException(
+                    "You are not authorized to access this URL");
+        }
+
+        return mapToUrlResponse(url);
     }
 
     @Transactional
-    public UrlResponse updateUrl(Long id, UrlUpdateRequest request, User user) {
+    public UrlResponse updateUrl(Long id,
+                                 UrlUpdateRequest request,
+                                 User user) {
+
         Url url = urlRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("URL not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("URL not found"));
 
         if (!url.getUser().getId().equals(user.getId())) {
-            throw new UnauthorizedException("You are not authorized to update this URL");
+            throw new UnauthorizedException(
+                    "You are not authorized to update this URL");
         }
 
         url.setOriginalUrl(request.getOriginalUrl());
+
         Url updatedUrl = urlRepository.save(url);
+
         return mapToUrlResponse(updatedUrl);
     }
 
     @Transactional
     public void deleteUrl(Long id, User user) {
+
         Url url = urlRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("URL not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("URL not found"));
 
         if (!url.getUser().getId().equals(user.getId())) {
-            throw new UnauthorizedException("You are not authorized to delete this URL");
+            throw new UnauthorizedException(
+                    "You are not authorized to delete this URL");
         }
 
         urlRepository.delete(url);
     }
 
     public UrlResponse mapToUrlResponse(Url url) {
-        String shortUrlString = baseUrl + "/" + url.getShortCode();
+
         return UrlResponse.builder()
                 .id(url.getId())
                 .originalUrl(url.getOriginalUrl())
                 .shortCode(url.getShortCode())
+                .shortUrl(appProperties.getBaseUrl() + "/" + url.getShortCode())
                 .customAlias(url.getCustomAlias())
                 .expiresAt(url.getExpiresAt())
                 .maxClicks(url.getMaxClicks())
                 .clickCount(url.getClickCount())
                 .isActive(url.getIsActive())
                 .createdAt(url.getCreatedAt())
-                .shortUrl(shortUrlString)
                 .build();
     }
 }

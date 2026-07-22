@@ -1,0 +1,1067 @@
+
+LeetCode Problem
+
+1
+Combine Two Tables
+
+2
+Employees Earning More Than Their Managers
+
+3
+Duplicate Emails
+4
+Customers Who Never Order
+5
+Delete Duplicate Emails
+6
+Rising Temperature
+
+7
+Game Play Analysis I
+8
+Employee Bonus
+
+9
+Find Customer Referee
+10
+
+Big Countries
+
+11
+Classes More Than 5 Students
+
+12
+Not Boring Movies
+
+13
+Swap Salary
+14
+Product Sales Analysis I
+15
+Project Employees I
+16
+Article Views I
+17
+Reformat Department Table
+18
+Students and Examinations
+19
+Replace Employee ID With Unique Identifier
+
+20
+Customer Who Visited but Did Not Make Any Transactions
+
+21
+Average Time of Process per Machine
+22
+
+Invalid Tweets
+
+23
+Find Followers Count
+24
+The Number of Employees Which Report to Each Employee
+25
+Find Total Time Spent by Each Employee
+
+26
+Recyclable and Low Fat Products
+27
+Rearrange Products Table
+28
+Calculate Special Bonus
+29
+The Latest Login in 2020
+30
+Confirmation Rate
+31
+Employees With Missing Information
+32
+Employees Whose Manager Left the Company
+
+33
+
+Number of Unique Subjects Taught by Each Teacher
+
+34
+User Activity for the Past 30 Days I
+35
+Average Selling Price
+36
+Monthly Transactions I
+37
+Queries Quality and Percentage
+38
+List the Products Ordered in a Period
+39
+Ads Performance
+40
+Group Sold Products By The Date
+41
+Find Users With Valid E-Mails
+42
+Patients With a Condition
+43
+Fix Product Name Format
+44
+Percentage of Users Attended a Contest
+45
+Fix Names in a Table
+46
+
+	
+
+Daily Leads and Partners
+
+
+
+
+47
+
+	
+
+Primary Department for Each Employee
+
+
+
+
+48
+
+	
+
+Calculate Special Bonus
+
+
+
+
+49
+
+	
+
+Employees With Missing Information
+
+
+
+
+50
+
+	
+
+Number of Unique Subjects Taught by Each Teacher
+
+Phase 2: Intermediate (51–100)
+Covers
+Subqueries
+Correlated Queries
+CTEs
+Medium JOIN Problems
+
+#
+
+	
+
+Problem
+
+
+
+
+51
+
+	
+
+Game Play Analysis IV
+
+
+
+
+52
+
+	
+
+Managers with at Least 5 Direct Reports
+
+
+
+
+53
+
+	
+
+Investments in 2016
+
+
+
+
+54
+
+	
+
+Friend Requests II
+
+
+
+
+55
+
+	
+
+Tree Node
+
+
+
+
+56
+
+	
+
+Triangle Judgement
+
+
+
+
+57
+
+	
+
+Exchange Seats
+
+
+
+
+58
+
+	
+
+Customers Who Bought All Products
+
+
+
+
+59
+
+	
+
+Product Sales Analysis III
+
+
+
+
+60
+
+	
+
+Game Play Analysis V
+
+
+
+
+61
+
+	
+
+Active Businesses
+
+
+
+
+62
+
+	
+
+Market Analysis I
+
+
+
+
+63
+
+	
+
+Product Price at a Given Date
+
+
+
+
+64
+
+	
+
+Immediate Food Delivery II
+
+
+
+
+65
+
+	
+
+Last Person to Fit in the Bus
+
+
+
+
+66
+
+	
+
+Restaurant Growth
+
+
+
+
+67
+
+	
+
+Movie Rating
+
+
+
+
+68
+
+	
+
+Capital Gain/Loss
+
+
+
+
+69
+
+	
+
+Active Users
+
+
+
+
+70
+
+	
+
+Calculate Salaries
+
+
+
+
+71
+
+	
+
+Countries You Can Safely Invest In
+
+
+
+
+72
+
+	
+
+Maximum Number of Non-Overlapping Substrings
+
+
+
+
+73
+
+	
+
+The Most Recent Three Orders
+
+
+
+
+74
+
+	
+
+The Most Recent Orders for Each Product
+
+
+
+
+75
+
+	
+
+Bank Account Summary
+
+
+
+
+76
+
+	
+
+Warehouse Manager
+
+
+
+
+77
+
+	
+
+Bank Account Summary II
+
+
+
+
+78
+
+	
+
+The Most Frequently Ordered Products
+
+
+
+
+79
+
+	
+
+Sellers With No Sales
+
+
+
+
+80
+
+	
+
+All Valid Triplets
+
+
+
+
+81
+
+	
+
+Hopper Company Queries I
+
+
+
+
+82
+
+	
+
+Hopper Company Queries II
+
+
+
+
+83
+
+	
+
+Hopper Company Queries III
+
+
+
+
+84
+
+	
+
+Average Time of Process per Machine
+
+
+
+
+85
+
+	
+
+Product's Worth Over Invoices
+
+
+
+
+86
+
+	
+
+Invalid Tweets
+
+
+
+
+87
+
+	
+
+Number of Calls Between Two Persons
+
+
+
+
+88
+
+	
+
+Biggest Window Between Visits
+
+
+
+
+89
+
+	
+
+Count Apples and Oranges
+
+
+
+
+90
+
+	
+
+Find Followers Count
+
+
+
+
+91
+
+	
+
+The Number of Employees Which Report to Each Employee
+
+
+
+
+92
+
+	
+
+Find Total Time Spent by Each Employee
+
+
+
+
+93
+
+	
+
+Recyclable and Low Fat Products
+
+
+
+
+94
+
+	
+
+Grand Slam Titles
+
+
+
+
+95
+
+	
+
+Rearrange Products Table
+
+
+
+
+96
+
+	
+
+Ad-Free Sessions
+
+
+
+
+97
+
+	
+
+League Statistics
+
+
+
+
+98
+
+	
+
+Orders With Maximum Quantity Above Average
+
+
+
+
+99
+
+	
+
+Page Recommendations II
+
+
+
+
+100
+
+	
+
+Users That Actively Request Confirmation Messages
+
+Phase 3: Advanced (101–150)
+Covers
+Window Functions
+RANK
+DENSE_RANK
+LEAD/LAG
+Hard Interview Questions
+
+#
+
+	
+
+Problem
+
+
+
+
+101
+
+	
+
+Department Highest Salary
+
+
+
+
+102
+
+	
+
+Department Top Three Salaries
+
+
+
+
+103
+
+	
+
+Trips and Users
+
+
+
+
+104
+
+	
+
+Median Employee Salary
+
+
+
+
+105
+
+	
+
+Find Median Given Frequency
+
+
+
+
+106
+
+	
+
+Human Traffic of Stadium
+
+
+
+
+107
+
+	
+
+Average Salary
+
+
+
+
+108
+
+	
+
+Project Employees III
+
+
+
+
+109
+
+	
+
+Unpopular Books
+
+
+
+
+110
+
+	
+
+Highest Grade For Each Student
+
+
+
+
+111
+
+	
+
+User Purchase Platform
+
+
+
+
+112
+
+	
+
+Immediate Food Delivery I
+
+
+
+
+113
+
+	
+
+Tournament Winners
+
+
+
+
+114
+
+	
+
+Monthly Transactions II
+
+
+
+
+115
+
+	
+
+Report Contiguous Dates
+
+
+
+
+116
+
+	
+
+Ads Performance
+
+
+
+
+117
+
+	
+
+Number of Trusted Contacts
+
+
+
+
+118
+
+	
+
+Find the Quiet Students
+
+
+
+
+119
+
+	
+
+Product's Price for Each Store
+
+
+
+
+120
+
+	
+
+Grand Slam Titles
+
+
+
+
+121
+
+	
+
+Number of Orders in the Backlog
+
+
+
+
+122
+
+	
+
+Ad-Free Sessions
+
+
+
+
+123
+
+	
+
+League Statistics
+
+
+
+
+124
+
+	
+
+Orders With Maximum Quantity Above Average
+
+
+
+
+125
+
+	
+
+Page Recommendations II
+
+
+
+
+126
+
+	
+
+Users That Actively Request Confirmation Messages
+
+
+
+
+127
+
+	
+
+First and Last Call On the Same Day
+
+
+
+
+128
+
+	
+
+Find Cutoff Score for Each School
+
+
+
+
+129
+
+	
+
+The Number of Seniors and Juniors to Join the Company
+
+
+
+
+130
+
+	
+
+Number of Accounts That Did Not Stream
+
+
+
+
+131
+
+	
+
+The Category of Each Member in the Store
+
+
+
+
+132
+
+	
+
+The Number of Rich Customers
+
+
+
+
+133
+
+	
+
+The Airport With the Most Traffic
+
+
+
+
+134
+
+	
+
+Longest Winning Streak
+
+
+
+
+135
+
+	
+
+The Number of Users That Are Eligible for Discount
+
+
+
+
+136
+
+	
+
+Users With Two Purchases Within Seven Days
+
+
+
+
+137
+
+	
+
+Products With Three or More Orders in Two Consecutive Years
+
+
+
+
+138
+
+	
+
+Arrange Table by Gender
+
+
+
+
+139
+
+	
+
+The First Day of the Maximum Recorded Degree
+
+
+
+
+140
+
+	
+
+Product Sales Analysis IV
+
+
+
+
+141
+
+	
+
+Compute the Rank as a Percentage
+
+
+
+
+142
+
+	
+
+Generate the Invoice
+
+
+
+
+143
+
+	
+
+Calculate the Influence of Each Salesperson
+
+
+
+
+144
+
+	
+
+Change Null Values in a Table to the Previous Value
+
+
+
+
+145
+
+	
+
+Employees With Deductions
+
+
+
+
+146
+
+	
+
+Form a Chemical Bond
+
+
+
+
+147
+
+	
+
+Find Peak Calling Hours for Each City
+
+
+
+
+148
+
+	
+
+Calculate Compressed Mean
+
+
+
+
+149
+Find Third Transaction
+150
+Find Expensive Cities

@@ -1,0 +1,164 @@
+SELECT
+Select all columns
+Select specific columns
+DISTINCT
+LIMIT
+ORDER BY ASC
+ORDER BY DESC
+Alias using AS
+WHERE with =
+WHERE with !=
+BETWEEN
+Operators
+IN
+NOT IN
+LIKE %
+LIKE _
+IS NULL
+IS NOT NULL
+AND
+OR
+NOT
+Arithmetic operations
+Level 2: String Functions (21-35)
+CONCAT()
+CONCAT_WS()
+LENGTH()
+CHAR_LENGTH()
+UPPER()
+LOWER()
+SUBSTRING()
+LEFT()
+RIGHT()
+REPLACE()
+TRIM()
+LTRIM()
+RTRIM()
+REVERSE()
+LOCATE()
+Level 3: Numeric Functions (36-45)
+ROUND()
+CEIL()
+FLOOR()
+ABS()
+MOD()
+POWER()
+SQRT()
+RAND()
+SIGN()
+FORMAT()
+Level 4: Date Functions (46-60)
+CURDATE()
+NOW()
+CURRENT_TIMESTAMP
+YEAR()
+MONTH()
+DAY()
+HOUR()
+MINUTE()
+SECOND()
+DATEDIFF()
+TIMESTAMPDIFF()
+DATE_ADD()
+DATE_SUB()
+LAST_DAY()
+DATE_FORMAT()
+Level 5: Aggregate Functions (61-70)
+COUNT(*)
+COUNT(column)
+SUM()
+AVG()
+MAX()
+MIN()
+Aggregate with WHERE
+Aggregate with DISTINCT
+Aggregate with expressions
+Aggregate with NULL values
+Level 6: GROUP BY & HAVING (71-80)
+Simple GROUP BY
+Multiple columns
+HAVING
+HAVING COUNT
+HAVING SUM
+HAVING AVG
+GROUP BY YEAR
+GROUP BY MONTH
+ORDER BY GROUP BY
+Nested GROUP BY
+Level 7: CASE Statement (81-85)
+Simple CASE
+Multiple WHEN
+CASE with Aggregate
+CASE in ORDER BY
+CASE in GROUP BY
+Level 8: Joins (86-100)
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+CROSS JOIN
+SELF JOIN
+Multiple JOIN
+Three-table JOIN
+JOIN with Aggregate
+JOIN with GROUP BY
+JOIN + HAVING
+JOIN using aliases
+Non-equi JOIN
+Multiple conditions
+Employee-Manager
+Customer-Orders
+Level 9: Subqueries (101-110)
+Single-row subquery
+Multi-row subquery
+IN
+EXISTS
+NOT EXISTS
+ANY
+ALL
+Correlated subquery
+Nested subquery
+Aggregate subquery
+Level 10: Common Table Expressions (111-115)
+Simple CTE
+Multiple CTE
+Recursive CTE
+CTE with JOIN
+CTE with Aggregate
+Level 11: Window Functions (116-130)
+ROW_NUMBER()
+RANK()
+DENSE_RANK()
+NTILE()
+LEAD()
+LAG()
+FIRST_VALUE()
+LAST_VALUE()
+SUM OVER
+AVG OVER
+COUNT OVER
+PARTITION BY
+ORDER BY OVER
+Running Total
+Moving Average
+Level 12: Advanced SQL (131-140)
+UNION
+UNION ALL
+INTERSECT (concept)
+EXCEPT (concept)
+Views
+Index basics
+Composite Index
+Unique Index
+Stored View query
+Explain Plan (EXPLAIN)
+Level 13: Database Objects (141-145)
+CREATE VIEW
+CREATE INDEX
+DROP INDEX
+ALTER TABLE
+Constraints
+PRIMARY KEY
+FOREIGN KEY
+UNIQUE
+CHECK
+DEFAULT

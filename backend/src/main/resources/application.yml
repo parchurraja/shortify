@@ -21,3 +21,7 @@ jwt:
   expiration-ms: 900000
   refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:86400000}
 
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+
+

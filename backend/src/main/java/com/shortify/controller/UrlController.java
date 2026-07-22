@@ -32,21 +32,48 @@ public class UrlController {
             @Valid @RequestBody UrlCreateRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails,
             HttpServletRequest httpServletRequest) {
+
         UrlResponse response = urlService.createShortUrl(request, userDetails.getUser());
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(ApiResponse.success("Short URL created successfully", response, httpServletRequest.getRequestURI()));
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success(
+                        "Short URL created successfully",
+                        response,
+                        httpServletRequest.getRequestURI()));
     }
 
     @GetMapping
     public ResponseEntity<ApiResponse<Page<UrlResponse>>> getUrls(
             @RequestParam(required = false) String search,
-            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable,
             @AuthenticationPrincipal CustomUserDetails userDetails,
             HttpServletRequest httpServletRequest) {
-        Page<UrlResponse> urls = urlService.getUrls(userDetails.getUser(), search, pageable);
-        return ResponseEntity
-                .ok(ApiResponse.success("URLs retrieved successfully", urls, httpServletRequest.getRequestURI()));
+
+        Page<UrlResponse> urls =
+                urlService.getUrls(userDetails.getUser(), search, pageable);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "URLs retrieved successfully",
+                        urls,
+                        httpServletRequest.getRequestURI()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<UrlResponse>> getUrlById(
+            @PathVariable Long id,
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            HttpServletRequest httpServletRequest) {
+
+        UrlResponse response =
+                urlService.getUrlById(id, userDetails.getUser());
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "URL retrieved successfully",
+                        response,
+                        httpServletRequest.getRequestURI()));
     }
 
     @PutMapping("/{id}")
@@ -55,9 +82,15 @@ public class UrlController {
             @Valid @RequestBody UrlUpdateRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails,
             HttpServletRequest httpServletRequest) {
-        UrlResponse response = urlService.updateUrl(id, request, userDetails.getUser());
-        return ResponseEntity
-                .ok(ApiResponse.success("URL updated successfully", response, httpServletRequest.getRequestURI()));
+
+        UrlResponse response =
+                urlService.updateUrl(id, request, userDetails.getUser());
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "URL updated successfully",
+                        response,
+                        httpServletRequest.getRequestURI()));
     }
 
     @DeleteMapping("/{id}")
@@ -65,8 +98,13 @@ public class UrlController {
             @PathVariable Long id,
             @AuthenticationPrincipal CustomUserDetails userDetails,
             HttpServletRequest httpServletRequest) {
+
         urlService.deleteUrl(id, userDetails.getUser());
-        return ResponseEntity
-                .ok(ApiResponse.success("URL deleted successfully", null, httpServletRequest.getRequestURI()));
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "URL deleted successfully",
+                        null,
+                        httpServletRequest.getRequestURI()));
     }
 }

@@ -7,9 +7,7 @@ import com.shortify.service.AnalyticsService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/analytics")
@@ -21,12 +19,22 @@ public class AnalyticsController {
         this.analyticsService = analyticsService;
     }
 
+    // Dashboard
     @GetMapping("/dashboard")
     public ResponseEntity<ApiResponse<AnalyticsDashboardResponse>> getDashboard(
             @AuthenticationPrincipal CustomUserDetails userDetails,
-            HttpServletRequest httpServletRequest) {
-        AnalyticsDashboardResponse response = analyticsService.getDashboardData(userDetails.getUser());
-        return ResponseEntity
-                .ok(ApiResponse.success("Dashboard data retrieved successfully", response, httpServletRequest.getRequestURI()));
+            HttpServletRequest request) {
+
+        AnalyticsDashboardResponse response =
+                analyticsService.getDashboardData(userDetails.getUser());
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Dashboard data retrieved successfully",
+                        response,
+                        request.getRequestURI()
+                )
+        );
+    
     }
 }
