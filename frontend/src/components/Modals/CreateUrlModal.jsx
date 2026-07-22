@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { urlService } from '../../services/urlService';
+import { getShortLinkDisplayBase, getShortLinkUrl } from '../../utils/shortLink';
 import toast from 'react-hot-toast';
 import { X, Link2, Key, Calendar, Eye, Copy, Check, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -52,7 +53,7 @@ export const CreateUrlModal = ({ isOpen, onClose, onSuccess }) => {
 
   const handleCopy = () => {
     if (createdUrl) {
-      const fullShortUrl = `${window.location.origin}/${createdUrl.shortCode}`;
+      const fullShortUrl = getShortLinkUrl(createdUrl.shortCode, createdUrl.shortUrl);
       navigator.clipboard.writeText(fullShortUrl);
       setCopied(true);
       toast.success('Short URL copied to clipboard!');
@@ -87,7 +88,7 @@ export const CreateUrlModal = ({ isOpen, onClose, onSuccess }) => {
             <div className="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50">
               <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1 uppercase tracking-wider">Your Short Link</p>
               <p className="text-lg font-bold text-indigo-700 dark:text-indigo-300 font-mono break-all">
-                {window.location.origin}/{createdUrl.shortCode}
+                {getShortLinkUrl(createdUrl.shortCode, createdUrl.shortUrl)}
               </p>
             </div>
 
@@ -151,7 +152,7 @@ export const CreateUrlModal = ({ isOpen, onClose, onSuccess }) => {
               </label>
               <div className="flex items-center">
                 <span className="px-3 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-mono rounded-l-xl border border-r-0 border-slate-200 dark:border-slate-800">
-                  {window.location.origin.replace(/^https?:\/\//, '')}/
+                  {getShortLinkDisplayBase()}/
                 </span>
                 <input
                   type="text"

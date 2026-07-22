@@ -5,18 +5,18 @@ const RedirectHandler = () => {
   const { shortCode } = useParams();
 
   useEffect(() => {
-    const apiBase = import.meta.env.VITE_API_BASE_URL;
+    const configuredBase = import.meta.env.VITE_SHORT_LINK_BASE_URL || import.meta.env.VITE_API_BASE_URL;
     let redirectUrl;
-    
-    if (apiBase) {
-      redirectUrl = `${apiBase}/${shortCode}`;
+
+    if (configuredBase) {
+      const normalizedBase = configuredBase.trim().replace(/\/api\/?$/, '').replace(/\/$/, '');
+      redirectUrl = `${normalizedBase}/${shortCode}`;
     } else {
-      // In local development, direct to the Spring Boot port (8080)
       const protocol = window.location.protocol;
       const hostname = window.location.hostname;
       redirectUrl = `${protocol}//${hostname}:8080/${shortCode}`;
     }
-    
+
     window.location.replace(redirectUrl);
   }, [shortCode]);
 

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import { getShortLinkUrl } from '../../utils/shortLink';
 import toast from 'react-hot-toast';
 import { X, Download, Share2, Link2 } from 'lucide-react';
 
@@ -8,7 +9,7 @@ export const QrCodeModal = ({ urlData, onClose }) => {
 
   if (!urlData) return null;
 
-  const fullShortUrl = `${window.location.origin}/${urlData.shortCode}`;
+  const fullShortUrl = getShortLinkUrl(urlData.shortCode, urlData.shortUrl);
 
   const downloadQrCode = () => {
     const canvas = qrRef.current.querySelector('canvas');

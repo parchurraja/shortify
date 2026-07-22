@@ -11,8 +11,15 @@ export const AuthProvider = ({ children }) => {
     // Initial check of local credentials
     const storedUser = localStorage.getItem('user');
     const token = localStorage.getItem('accessToken');
-    if (storedUser && token) {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (storedUser && token && refreshToken) {
       setUser(JSON.parse(storedUser));
+    } else {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('user');
+      setUser(null);
     }
     setLoading(false);
   }, []);
@@ -36,13 +43,10 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     try {
       const response = await client.post('/auth/register', { name, email, password });
-      const { accessToken, refreshToken, user: userInfo } = response.data.data;
-      
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('user', JSON.stringify(userInfo));
-      
-      setUser(userInfo);
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('user');
+      setUser(null);
       return response.data;
     } catch (error) {
       throw error.response?.data || error;

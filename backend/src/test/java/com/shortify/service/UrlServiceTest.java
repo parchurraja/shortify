@@ -44,7 +44,7 @@ class UrlServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        when(appProperties.getBaseUrl()).thenReturn("http://localhost:8080");
+        when(appProperties.getBaseUrl()).thenReturn("https://shortify-backend-eubz.onrender.com");
         user = User.builder()
                 .id(1L)
                 .name("Alice")

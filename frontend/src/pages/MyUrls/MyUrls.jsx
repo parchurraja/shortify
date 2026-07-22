@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { urlService } from '../../services/urlService';
 import { SkeletonTableRow } from '../../components/Common/SkeletonLoader';
+import { getShortLinkUrl } from '../../utils/shortLink';
 import toast from 'react-hot-toast';
 import { 
   Search, 
@@ -70,10 +71,10 @@ export const MyUrls = () => {
     fetchUrls();
   }, [page, size, debouncedSearch, sort, refreshTrigger]);
 
-  const handleCopy = (shortCode, id) => {
-    const fullShortUrl = `${window.location.origin}/${shortCode}`;
+  const handleCopy = (urlItem) => {
+    const fullShortUrl = getShortLinkUrl(urlItem.shortCode, urlItem.shortUrl);
     navigator.clipboard.writeText(fullShortUrl);
-    setCopiedId(id);
+    setCopiedId(urlItem.id);
     toast.success('Short link copied!');
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -203,7 +204,9 @@ export const MyUrls = () => {
                   </td>
                 </tr>
               ) : (
-                urlsPage.content.map((urlItem) => (
+                urlsPage.content.map((urlItem) => {
+                  console.log(urlItem);
+                  return (
                   <tr key={urlItem.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors group">
                     <td className="py-4 px-4 max-w-xs truncate">
                       <div className="font-semibold text-slate-900 dark:text-slate-100 truncate">
@@ -214,12 +217,12 @@ export const MyUrls = () => {
 
                     <td className="py-4 px-4">
                       <a
-                        href={`/${urlItem.shortCode}`}
+                        href={getShortLinkUrl(urlItem.shortCode, urlItem.shortUrl)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
                       >
-                        <span>/{urlItem.shortCode}</span>
+                        <span className="truncate max-w-[220px]">/{urlItem.shortCode}</span>
                         <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>
                     </td>
@@ -247,7 +250,7 @@ export const MyUrls = () => {
                     <td className="py-4 px-4 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button
-                          onClick={() => handleCopy(urlItem.shortCode, urlItem.id)}
+                          onClick={() => handleCopy(urlItem)}
                           className="p-2 rounded-lg text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition-colors"
                           title="Copy short link"
                         >
@@ -280,7 +283,8 @@ export const MyUrls = () => {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })}
               )}
             </tbody>
           </table>

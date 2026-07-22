@@ -172,12 +172,21 @@ public class UrlService {
     }
 
     public UrlResponse mapToUrlResponse(Url url) {
+        String baseUrl = appProperties.getBaseUrl();
+        if (!StringUtils.hasText(baseUrl)) {
+            baseUrl = "https://shortify-backend-eubz.onrender.com";
+        }
+
+        String normalizedBaseUrl = baseUrl.trim();
+        if (normalizedBaseUrl.endsWith("/")) {
+            normalizedBaseUrl = normalizedBaseUrl.substring(0, normalizedBaseUrl.length() - 1);
+        }
 
         return UrlResponse.builder()
                 .id(url.getId())
                 .originalUrl(url.getOriginalUrl())
                 .shortCode(url.getShortCode())
-                .shortUrl(appProperties.getBaseUrl() + "/" + url.getShortCode())
+                .shortUrl(normalizedBaseUrl + "/" + url.getShortCode())
                 .customAlias(url.getCustomAlias())
                 .expiresAt(url.getExpiresAt())
                 .maxClicks(url.getMaxClicks())

@@ -46,7 +46,7 @@ export const Analytics = () => {
             onClick={() => setDateRange('7d')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               dateRange === '7d'
-                ? 'bg-indigo-600 text-white shadow-sm'
+                ? 'bg-orange-500 text-white shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -56,7 +56,7 @@ export const Analytics = () => {
             onClick={() => setDateRange('30d')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               dateRange === '30d'
-                ? 'bg-indigo-600 text-white shadow-sm'
+                ? 'bg-amber-500 text-white shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -66,7 +66,7 @@ export const Analytics = () => {
             onClick={() => setDateRange('all')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               dateRange === 'all'
-                ? 'bg-indigo-600 text-white shadow-sm'
+                ? 'bg-emerald-500 text-white shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >

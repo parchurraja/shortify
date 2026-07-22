@@ -4,6 +4,7 @@ import { urlService } from '../../services/urlService';
 import { analyticsService } from '../../services/analyticsService';
 import { SkeletonCard, SkeletonTableRow, SkeletonChart } from '../../components/Common/SkeletonLoader';
 import ClickTimelineChart from '../../components/Charts/ClickTimelineChart';
+import { getShortLinkUrl } from '../../utils/shortLink';
 import toast from 'react-hot-toast';
 import { 
   Link2, 
@@ -70,10 +71,10 @@ export const Dashboard = () => {
     fetchUrls();
   }, [page, searchQuery, refreshTrigger]);
 
-  const handleCopy = (shortCode, id) => {
-    const fullShortUrl = `${window.location.origin}/${shortCode}`;
+  const handleCopy = (urlItem) => {
+    const fullShortUrl = getShortLinkUrl(urlItem.shortCode, urlItem.shortUrl);
     navigator.clipboard.writeText(fullShortUrl);
-    setCopiedId(id);
+    setCopiedId(urlItem.id);
     toast.success('Short link copied!');
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -127,10 +128,10 @@ export const Dashboard = () => {
           </>
         ) : (
           <>
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all">
+            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-emerald-200/70 dark:border-emerald-900/40 shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Links</span>
-                <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Total Links</span>
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                   <Link2 className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
@@ -140,10 +141,10 @@ export const Dashboard = () => {
               <p className="text-xs text-slate-400 mt-1">Shortened URLs created</p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all">
+            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-orange-200/70 dark:border-orange-900/40 shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Clicks</span>
-                <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                <span className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">Total Clicks</span>
+                <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center">
                   <MousePointerClick className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
@@ -153,10 +154,10 @@ export const Dashboard = () => {
               <p className="text-xs text-slate-400 mt-1">All-time link redirects</p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all">
+            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-amber-200/70 dark:border-amber-900/40 shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Clicks Today</span>
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Clicks Today</span>
+                <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
                   <TrendingUp className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
@@ -166,10 +167,10 @@ export const Dashboard = () => {
               <p className="text-xs text-slate-400 mt-1">Clicks recorded past 24 hours</p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all">
+            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-sky-200/70 dark:border-sky-900/40 shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Top Performing</span>
-                <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                <span className="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">Top Performing</span>
+                <div className="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center">
                   <Award className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
@@ -255,12 +256,12 @@ export const Dashboard = () => {
 
                     <td className="py-3.5 px-4">
                       <a
-                        href={`/${urlItem.shortCode}`}
+                        href={getShortLinkUrl(urlItem.shortCode, urlItem.shortUrl)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
                       >
-                        <span>/{urlItem.shortCode}</span>
+                        <span className="truncate max-w-[220px]">/{urlItem.shortCode}</span>
                         <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>
                     </td>
@@ -276,7 +277,7 @@ export const Dashboard = () => {
                     <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button
-                          onClick={() => handleCopy(urlItem.shortCode, urlItem.id)}
+                          onClick={() => handleCopy(urlItem)}
                           className="p-2 rounded-lg text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition-colors"
                           title="Copy short link"
                         >

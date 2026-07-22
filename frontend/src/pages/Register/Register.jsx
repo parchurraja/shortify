@@ -28,8 +28,8 @@ export const Register = () => {
     setLoading(true);
     try {
       await register(name, email, password);
-      toast.success('Account created successfully!');
-      navigate('/dashboard');
+      toast.success('Account created successfully! Please sign in.');
+      navigate('/login');
     } catch (err) {
       const errMsg = err?.message || 'Registration failed. Please try again.';
       toast.error(errMsg);

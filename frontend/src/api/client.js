@@ -5,7 +5,6 @@ const client = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
 });
 
 // Request interceptor to inject JWT Access Token
@@ -45,8 +44,9 @@ client.interceptors.response.use(
     // Check if error is 401 Unauthorized and not already retrying
     if (error.response?.status === 401 && !originalRequest._retry) {
       // Avoid infinite loop if refreshing fails
-      if (originalRequest.url === '/auth/refresh' || originalRequest.url === '/auth/login') {
+      if (originalRequest.url === '/auth/refresh' || originalRequest.url === '/auth/login' || originalRequest.url === '/auth/register') {
         localStorage.clear();
+        window.location.href = '/login';
         return Promise.reject(error);
       }
 
